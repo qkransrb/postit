@@ -36,13 +36,10 @@ const Register = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const response = await fetch(
-        `${window.location.origin}/api/auth/sign-up`,
-        {
-          method: "POST",
-          body: JSON.stringify(values),
-        }
-      );
+      const response = await fetch("/api/auth/sign-up", {
+        method: "POST",
+        body: JSON.stringify(values),
+      });
       const data = await response.json();
       if (response.ok) {
         form.reset();

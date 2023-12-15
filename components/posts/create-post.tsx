@@ -34,7 +34,7 @@ const CreatePost = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const response = await fetch(`${window.location.origin}/api/posts`, {
+      const response = await fetch("/api/posts", {
         method: "POST",
         body: JSON.stringify(values),
       });
