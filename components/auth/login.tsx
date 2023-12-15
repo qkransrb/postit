@@ -30,16 +30,11 @@ const Login = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    signIn("credentials", {
-      ...values,
+    await signIn("credentials", {
+      email: values.email,
+      password: values.password,
       callbackUrl: "/",
-    })
-      .then((response: any) => {
-        if (!response.ok) {
-          return alert(response.error);
-        }
-      })
-      .catch((error) => console.log("error: ", error));
+    });
   };
 
   return (
