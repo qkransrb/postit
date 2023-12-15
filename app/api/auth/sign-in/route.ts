@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    return NextResponse.json({ ...user, password: undefined }, { status: 200 });
+    return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: "Internal Server Error" },
