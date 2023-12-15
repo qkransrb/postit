@@ -34,13 +34,10 @@ const CreatePost = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/posts`,
-        {
-          method: "POST",
-          body: JSON.stringify(values),
-        }
-      );
+      const response = await fetch(`${window.location.origin}/api/posts`, {
+        method: "POST",
+        body: JSON.stringify(values),
+      });
       const data = await response.json();
       if (response.ok) {
         form.reset();

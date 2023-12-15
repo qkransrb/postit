@@ -37,7 +37,7 @@ const Register = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/sign-up`,
+        `${window.location.origin}/api/auth/sign-up`,
         {
           method: "POST",
           body: JSON.stringify(values),
