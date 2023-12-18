@@ -2,15 +2,24 @@ import { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import db from "./db";
 
+if (!process.env.NEXTAUTH_URL) {
+  throw new Error("NEXTAUTH_URL not found");
+}
+
+if (!process.env.NEXTAUTH_SECRET) {
+  throw new Error("NEXTAUTH_SECRET not found");
+}
+
 const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, _req) {
+        console.log("credentials: ", credentials);
         if (!credentials || !credentials.email || !credentials.password) {
           return null;
         }
@@ -23,12 +32,15 @@ const authOptions: NextAuthOptions = {
             }
           );
           const data = await response.json();
+          console.log("response: ", response);
+          console.log("data: ", data);
           if (response.ok) {
-            return data.user;
+            return data?.user;
           } else {
             return null;
           }
         } catch (error) {
+          console.log(error);
           return null;
         }
       },

@@ -30,6 +30,7 @@ const Login = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    alert(JSON.stringify(values));
     await signIn("credentials", {
       email: values.email,
       password: values.password,
