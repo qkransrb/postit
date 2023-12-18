@@ -23,26 +23,32 @@ const authOptions: NextAuthOptions = {
         if (!credentials || !credentials.email || !credentials.password) {
           return null;
         }
-        try {
-          const response = await fetch(
-            `${process.env.NEXTAUTH_URL}/api/auth/sign-in`,
-            {
-              method: "POST",
-              body: JSON.stringify(credentials),
-            }
-          );
-          const data = await response.json();
-          console.log("response: ", response);
-          console.log("data: ", data);
-          if (response.ok) {
-            return data?.user;
-          } else {
-            return null;
-          }
-        } catch (error) {
-          console.log(error);
-          return null;
-        }
+        // try {
+        //   const response = await fetch(
+        //     `${process.env.NEXTAUTH_URL}/api/auth/sign-in`,
+        //     {
+        //       method: "POST",
+        //       body: JSON.stringify(credentials),
+        //     }
+        //   );
+        //   const data = await response.json();
+        //   console.log("response: ", response);
+        //   console.log("data: ", data);
+        //   if (response.ok) {
+        //     return data?.user;
+        //   } else {
+        //     return null;
+        //   }
+        // } catch (error) {
+        //   console.log(error);
+        //   return null;
+        // }
+        return {
+          id: "1",
+          name: "jane",
+          email: "jane@example.com",
+          password: "1234",
+        };
       },
     }),
   ],
