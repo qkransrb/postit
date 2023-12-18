@@ -28,3 +28,14 @@ model Post {
   userId String @db.ObjectId
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model CoinRanking {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  uuid    String
+  symbol  String
+  name    String
+  color   String
+  iconUrl String
+  price   String
+  rank    Int
+}
