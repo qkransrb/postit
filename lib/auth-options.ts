@@ -1,5 +1,6 @@
 import { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import * as bcrypt from "bcryptjs";
 import db from "./db";
 
 if (!process.env.NEXTAUTH_URL) {
@@ -43,12 +44,23 @@ const authOptions: NextAuthOptions = {
         //   console.log(error);
         //   return null;
         // }
-        return {
-          id: "1",
-          name: "jane",
-          email: "jane@example.com",
-          password: "1234",
-        };
+
+        try {
+          const user = await db.user.findUnique({
+            where: {
+              email: credentials.email,
+            },
+          });
+          if (!user) return null;
+          const comparedPassword = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
+          if (!comparedPassword) return null;
+          return user;
+        } catch (error) {
+          return null;
+        }
       },
     }),
   ],
